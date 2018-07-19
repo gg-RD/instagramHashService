@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 const infoStyle = {
   float: 'left',
@@ -12,54 +13,40 @@ const infoStyle = {
 export default class Info extends React.Component {
   constructor() {
     super();
-
     this.state = {
-      item: {
-        ID: '252120z',
-        location: 'Albany, NY',
-        condition: 'Brand New',
-        name: 'CanonEOS 40d',
-        price: 499
-      },
-      currentBid: 499
+      insta_stories: [],
     };
 
-    this.handleClick = this.handleClick.bind(this);
+    // this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick(e) {
-    let newBid = this.state.currentBid + 1;
-    let item = Object.assign({}, this.state.item);
-    item.price = newBid;
-    this.setState({
-      currentBid: newBid,
-      item: item
+  // handleClick(e) {
+  //   let newBid = this.state.currentBid + 1;
+  //   let item = Object.assign({}, this.state.item);
+  //   item.price = newBid;
+  //   this.setState({
+  //     currentBid: newBid,
+  //     item: item
+  //   });
+  // }
+
+  getShoes(){
+    axios.get('/user?ID=12345')
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
     });
-  }
+    }
 
   render() {
+
     return (
       <div style={infoStyle}>
-        <p>
-          <span>
-            Auction: {this.state.item.ID}
-          </span>
-          <br/>
-          <span>
-            For sale is a <em>
-              {this.state.item.condition}
-            </em> <strong>
-              {this.state.item.name}
-            </strong>
-          </span>
-          <br />
-          <span>
-            Current Bid: ${this.state.item.price}
-          </span>
-          <button onClick={(e) => {this.handleClick(e)}}>
-          Bid
-          </button>
-        </p>
+        <h3 font="NimbusSanL-Regu"> HOW OTHERS ARE WEARING IT </h3>
+        <h5> Mention @Nike on Instagram for a chance to have your look featured </h5>
+        <shoeList list={this.state.insta_stories}/>
       </div>
     );
   }
