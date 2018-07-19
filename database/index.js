@@ -10,6 +10,8 @@ let shoeSchema = mongoose.Schema({
   likes: Number,
   image_url: String,
   name_shoe:String,
+
+
 });
 
 shoeSchema.plugin(AutoIncrement, {inc_field: 'id'});
