@@ -5,9 +5,8 @@ import ShoeItem from './ShoeItem.jsx'
 
 const infoStyle = {
   float: 'left',
-  width: '50%',
-  height: '50%',
-  borderStyle: 'solid',
+  width: '40%',
+  height: '35%',
   borderWidth: '2px',
   textAlign: 'center'
 };
@@ -52,8 +51,12 @@ export default class Info extends React.Component {
     return (
       <div style={infoStyle}>
         <h3 className='title'> HOW OTHERS ARE WEARING IT </h3>
-        <h5 className='subtitle'> Mention @Nike on Instagram for a chance to have your look featured </h5>
-        <ShoeList list={this.state.insta_stories}/>
+        <h5 className='subtitle'>Mention @Nike on Instagram for a chance to have your look featured.</h5>
+        <ShoeList
+          list1={this.state.insta_stories.slice(0,2)}
+          list2={this.state.insta_stories.slice(2,4)}
+          list3={this.state.insta_stories.slice(4,5)}
+        />
       </div>
     );
   }
