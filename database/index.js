@@ -1,14 +1,20 @@
-var mongoose = require('mongoose');
+
+const mongoose = require('mongoose');
+const AutoIncrement = require('mongoose-sequence')(mongoose);
+
 mongoose.connect('mongodb://localhost/shoes');
+
 var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-  // we're connected!
-  var shoeSchema = mongoose.Schema({
-  name: String,
+
+let shoeSchema = mongoose.Schema({
   insta_user: String,
   likes: Number,
   image_url: String,
-  });
-  var Shoe = mongoose.model('Shoe', shoeSchema);
+  name_shoe:String,
 });
+
+shoeSchema.plugin(AutoIncrement, {inc_field: 'id'});
+let Shoe = mongoose.model('Shoe', shoeSchema);
+
+
+module.exports.Shoe = Shoe;
