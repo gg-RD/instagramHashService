@@ -3959,6 +3959,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
@@ -3969,42 +3971,73 @@ var _ShoeItem2 = _interopRequireDefault(_ShoeItem);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var ShoeList = function ShoeList(_ref) {
-  var list1 = _ref.list1,
-      list2 = _ref.list2,
-      list3 = _ref.list3;
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-  return _react2.default.createElement(
-    'div',
-    { className: 'shoes' },
-    _react2.default.createElement(
-      'table',
-      null,
-      _react2.default.createElement(
-        'tr',
-        null,
-        list1.map(function (i) {
-          return _react2.default.createElement(_ShoeItem2.default, { key: i.id, item: i });
-        })
-      ),
-      _react2.default.createElement(
-        'tr',
-        null,
-        list2.map(function (i) {
-          return _react2.default.createElement(_ShoeItem2.default, { key: i.id, item: i });
-        })
-      ),
-      _react2.default.createElement(
-        'tr',
-        null,
-        list3.map(function (i) {
-          return _react2.default.createElement(_ShoeItem2.default, { key: i.id, item: i });
-        })
-      )
-    )
-  );
-};
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ShoeList = function (_React$Component) {
+  _inherits(ShoeList, _React$Component);
+
+  function ShoeList(props) {
+    _classCallCheck(this, ShoeList);
+
+    var _this = _possibleConstructorReturn(this, (ShoeList.__proto__ || Object.getPrototypeOf(ShoeList)).call(this, props));
+
+    _this.state = {
+      show_remaining: false
+    };
+    return _this;
+  }
+
+  _createClass(ShoeList, [{
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'shoes' },
+        _react2.default.createElement(
+          'table',
+          null,
+          _react2.default.createElement(
+            'tr',
+            null,
+            this.props.list1.map(function (i) {
+              return _react2.default.createElement(_ShoeItem2.default, { key: i.id, item: i });
+            })
+          ),
+          _react2.default.createElement(
+            'tr',
+            { className: !this.state.show_remaining ? 'hidden' : '' },
+            this.props.list2.map(function (i) {
+              return _react2.default.createElement(_ShoeItem2.default, { key: i.id, item: i });
+            })
+          ),
+          _react2.default.createElement(
+            'tr',
+            { className: !this.state.show_remaining ? 'hidden' : '' },
+            this.props.list3.map(function (i) {
+              return _react2.default.createElement(_ShoeItem2.default, { key: i.id, item: i });
+            })
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'show-remaining', onClick: function onClick() {
+              var newState = !_this2.state.show_remaining;
+              _this2.setState({ show_remaining: newState });
+            } },
+          !this.state.show_remaining ? 'Load More (' + (this.props.list2.length + this.props.list3.length) + ')' : 'Hide'
+        )
+      );
+    }
+  }]);
+
+  return ShoeList;
+}(_react2.default.Component);
 
 exports.default = ShoeList;
 
