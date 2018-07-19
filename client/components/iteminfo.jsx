@@ -1,5 +1,7 @@
 import React from 'react';
 import axios from 'axios';
+import ShoeList from './ShoeList.jsx'
+import ShoeItem from './ShoeItem.jsx'
 
 const infoStyle = {
   float: 'left',
@@ -30,23 +32,28 @@ export default class Info extends React.Component {
   //   });
   // }
 
+  componentDidMount(){
+    this.getShoes();
+  }
+
   getShoes(){
-    axios.get('/user?ID=12345')
-    .then(function (response) {
-      console.log(response);
+    axios.get('/shoes/shoe')
+    .then( (response) => {
+//      console.log(response.data);
+      this.setState({insta_stories:response.data})
     })
-    .catch(function (error) {
+    .catch( (error) => {
       console.log(error);
     });
     }
 
   render() {
-
+  //  console.log(this.state.insta_stories);
     return (
       <div style={infoStyle}>
-        <h3 font="NimbusSanL-Regu"> HOW OTHERS ARE WEARING IT </h3>
-        <h5> Mention @Nike on Instagram for a chance to have your look featured </h5>
-        <shoeList list={this.state.insta_stories}/>
+        <h3 className='title'> HOW OTHERS ARE WEARING IT </h3>
+        <h5 className='subtitle'> Mention @Nike on Instagram for a chance to have your look featured </h5>
+        <ShoeList list={this.state.insta_stories}/>
       </div>
     );
   }
