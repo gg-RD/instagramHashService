@@ -32,7 +32,8 @@ export default class Info extends React.Component {
   // }
 
   componentDidMount(){
-    this.getShoes();
+    this.updateInstagram();
+     setTimeout(() => {this.getShoes();}, 1000);
   }
 
   getShoes(){
@@ -45,6 +46,17 @@ export default class Info extends React.Component {
       console.log(error);
     });
     }
+
+  updateInstagram(){
+    console.log('updating Instagram');
+    axios.post('/shoes/shoe')
+    .then((response) => {
+    //console.log(response.data);
+    })
+    .catch( (error) => {
+      console.log(error);
+    });
+  }
 
   render() {
   //  console.log(this.state.insta_stories);
