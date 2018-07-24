@@ -6,8 +6,14 @@
   <style>
 
   .table{
-    padding-top: 2px;
+    padding-top: 1px;
     margin-top: 1px;
+    border:1;
+    border-collapse: collapse;
+  }
+
+  .shoe-item{
+    padding: 5px;
   }
 
   .title {
@@ -40,6 +46,31 @@
     text-align: left;
   }
 
+  .white-box{
+    background-color: White;
+    height: 500px;
+    width: 750px;
+    font-weight: normal;
+    color: #92a8d1;
+    position: absolute;
+    top: 200px;
+    right: 550px
+  }
+
+  .image_in_box{
+    height: 450px;
+    width: 450px;
+    float: left;
+    margin: 20px;
+  }
+
+  #In_look{
+    font-family: Helvetica;
+    font-weight: bold;
+    color:#000000;
+    font-size: 15px;
+    text-align: left;
+  }
 
   .hidden{
     display:none;
@@ -82,6 +113,19 @@
     line-height: 50px;
   }
 
+  #overlay {
+    position: fixed; /* Sit on top of the page content */
+    display: none; /* Hidden by default */
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+    cursor: pointer; /* Add a pointer on hover */
+  }
 
 </style>
 
