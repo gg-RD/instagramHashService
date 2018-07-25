@@ -1215,40 +1215,51 @@ var ShoeItem = function (_React$Component) {
   }
 
   _createClass(ShoeItem, [{
-    key: 'handleHover',
+    key: "handleHover",
     value: function handleHover() {
       this.setState({
         is_hovered: !this.state.is_hovered
       });
     }
   }, {
-    key: 'render',
+    key: "OverlayOn",
+    value: function OverlayOn() {
+      document.getElementById("overlay").style.display = "block";
+    }
+  }, {
+    key: "OverlayOff",
+    value: function OverlayOff() {
+      document.getElementById("overlay").style.display = "none";
+    }
+  }, {
+    key: "render",
     value: function render() {
       return _react2.default.createElement(
-        'td',
-        { className: 'shoe-item', id: 'table-row', height: '100' },
+        "td",
+        { className: "shoe-item", id: "table-row" },
         _react2.default.createElement(
-          'div',
-          null,
+          "div",
+          { className: "divBetween" },
           _react2.default.createElement(
-            'div',
+            "div",
             { className: this.state.is_hovered ? 'div2' : 'div3' },
             this.state.is_hovered ? 'Shop the look' : ''
           ),
-          _react2.default.createElement('img', { src: this.props.item.image_url, className: 'image_shoe',
-            onMouseEnter: this.handleHover, onMouseLeave: this.handleHover
+          _react2.default.createElement("img", { src: this.props.item.image_url, className: "image_shoe",
+            onMouseEnter: this.handleHover, onMouseLeave: this.handleHover,
+            onClick: this.OverlayOn
           })
         ),
         _react2.default.createElement(
-          'p',
-          { className: 'insta_user' },
+          "p",
+          { className: "insta_user" },
           this.props.item.insta_user
         ),
         _react2.default.createElement(
-          'p',
-          { className: 'likes' },
+          "p",
+          { className: "likes" },
           this.props.item.likes,
-          ' Likes'
+          " Likes"
         )
       );
     }
@@ -1304,6 +1315,14 @@ var _ShoeItem = __webpack_require__(13);
 
 var _ShoeItem2 = _interopRequireDefault(_ShoeItem);
 
+var _ShoeInstagramItem = __webpack_require__(41);
+
+var _ShoeInstagramItem2 = _interopRequireDefault(_ShoeInstagramItem);
+
+var _Arrow = __webpack_require__(42);
+
+var _Arrow2 = _interopRequireDefault(_Arrow);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1329,41 +1348,33 @@ var Info = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (Info.__proto__ || Object.getPrototypeOf(Info)).call(this));
 
     _this.state = {
-      insta_stories: []
+      insta_stories: [],
+      currentInstagramIndex: 0
     };
-
-    // this.handleClick = this.handleClick.bind(this);
+    _this.nextSlide = _this.nextSlide.bind(_this);
+    _this.previousSlide = _this.previousSlide.bind(_this);
+    _this.updateCurrentInstagram = _this.updateCurrentInstagram.bind(_this);
     return _this;
   }
-
-  // handleClick(e) {
-  //   let newBid = this.state.currentBid + 1;
-  //   let item = Object.assign({}, this.state.item);
-  //   item.price = newBid;
-  //   this.setState({
-  //     currentBid: newBid,
-  //     item: item
-  //   });
-  // }
 
   _createClass(Info, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      var _this2 = this;
-
       this.updateInstagram();
-      setTimeout(function () {
-        _this2.getShoes();
-      }, 1000);
+    }
+  }, {
+    key: 'updateCurrentInstagram',
+    value: function updateCurrentInstagram(newInstagram) {
+      this.setState({ currentInstagram: newInstagram });
     }
   }, {
     key: 'getShoes',
     value: function getShoes() {
-      var _this3 = this;
+      var _this2 = this;
 
       _axios2.default.get('/shoes/shoe').then(function (response) {
         //      console.log(response.data);
-        _this3.setState({ insta_stories: response.data });
+        _this2.setState({ insta_stories: response.data });
       }).catch(function (error) {
         console.log(error);
       });
@@ -1371,17 +1382,46 @@ var Info = function (_React$Component) {
   }, {
     key: 'updateInstagram',
     value: function updateInstagram() {
+      var _this3 = this;
+
       console.log('updating Instagram');
       _axios2.default.post('/shoes/shoe').then(function (response) {
         //console.log(response.data);
+        _this3.getShoes();
       }).catch(function (error) {
         console.log(error);
       });
     }
   }, {
+    key: 'previousSlide',
+    value: function previousSlide() {
+      var lastIndex = this.state.insta_stories.length - 1;
+      var currentImageIndex = this.state.currentInstagramIndex;
+      var shouldResetIndex = currentImageIndex === 0;
+      var index = shouldResetIndex ? lastIndex : currentImageIndex - 1;
+
+      this.setState({
+        currentInstagramIndex: index
+      });
+      //console.log(this.state.currentInstagramIndex);
+    }
+  }, {
+    key: 'nextSlide',
+    value: function nextSlide() {
+      var lastIndex = this.state.insta_stories.length - 1;
+      var currentImageIndex = this.state.currentInstagramIndex;
+      var shouldResetIndex = currentImageIndex === lastIndex;
+      var index = shouldResetIndex ? 0 : currentImageIndex + 1;
+
+      this.setState({
+        currentInstagramIndex: index
+      });
+
+      //console.log('slice',this.state.insta_stories.slice(this.state.currentInstagramIndex,this.state.currentInstagramIndex+1)[0]);
+    }
+  }, {
     key: 'render',
     value: function render() {
-      //  console.log(this.state.insta_stories);
       return _react2.default.createElement(
         'div',
         { style: infoStyle },
@@ -1398,8 +1438,27 @@ var Info = function (_React$Component) {
         _react2.default.createElement(_ShoeList2.default, {
           list1: this.state.insta_stories.slice(0, 2),
           list2: this.state.insta_stories.slice(2, 4),
-          list3: this.state.insta_stories.slice(4, 5)
-        })
+          list3: this.state.insta_stories.slice(4, 5),
+          list: this.state.insta_stories
+        }),
+        _react2.default.createElement(
+          'div',
+          { id: 'overlay' },
+          _react2.default.createElement(
+            'div',
+            { className: 'carousel' },
+            _react2.default.createElement(_Arrow2.default, {
+              direction: 'left',
+              clickFunction: this.previousSlide,
+              glyph: '\u25C0' }),
+            _react2.default.createElement(_ShoeInstagramItem2.default, {
+              item: this.state.insta_stories.slice(this.state.currentInstagramIndex, this.state.currentInstagramIndex + 1) }),
+            _react2.default.createElement(_Arrow2.default, {
+              direction: 'right',
+              clickFunction: this.nextSlide,
+              glyph: '\u25B6' })
+          )
+        )
       );
     }
   }]);
@@ -4128,6 +4187,122 @@ var ShoeList = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = ShoeList;
+
+/***/ }),
+/* 41 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ShoeInstagramItem = function (_React$Component) {
+  _inherits(ShoeInstagramItem, _React$Component);
+
+  function ShoeInstagramItem(props) {
+    _classCallCheck(this, ShoeInstagramItem);
+
+    var _this = _possibleConstructorReturn(this, (ShoeInstagramItem.__proto__ || Object.getPrototypeOf(ShoeInstagramItem)).call(this, props));
+
+    _this.state = {
+      item: []
+    };
+    return _this;
+  }
+
+  _createClass(ShoeInstagramItem, [{
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      //console.log(nextProps.item[0].image_url, 'image_url');
+      this.setState({ item: nextProps.item[0] });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return this.state.item.image_url !== '' ? _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          'div',
+          {
+            className: 'white-box' },
+          _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement('img', { className: 'image_in_box', src: this.state.item.image_url })
+          ),
+          _react2.default.createElement(
+            'div',
+            null,
+            this.state.item.insta_user
+          ),
+          _react2.default.createElement(
+            'h5',
+            { id: 'In_look' },
+            ' In this Look '
+          )
+        )
+      ) : _react2.default.createElement(
+        'div',
+        null,
+        'Loading...'
+      );
+    }
+  }]);
+
+  return ShoeInstagramItem;
+}(_react2.default.Component);
+
+exports.default = ShoeInstagramItem;
+
+/***/ }),
+/* 42 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Arrow = function Arrow(_ref) {
+  var direction = _ref.direction,
+      clickFunction = _ref.clickFunction,
+      glyph = _ref.glyph;
+  return _react2.default.createElement(
+    'div',
+    {
+      className: 'slide-arrow ' + direction,
+      onClick: clickFunction },
+    glyph
+  );
+};
+
+exports.default = Arrow;
 
 /***/ })
 /******/ ]);
