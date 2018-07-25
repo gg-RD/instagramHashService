@@ -1373,7 +1373,7 @@ var Info = function (_React$Component) {
       var _this2 = this;
 
       _axios2.default.get('/shoes/shoe').then(function (response) {
-        //      console.log(response.data);
+        //console.log(response.data);
         _this2.setState({ insta_stories: response.data });
       }).catch(function (error) {
         console.log(error);
@@ -1386,7 +1386,6 @@ var Info = function (_React$Component) {
 
       console.log('updating Instagram');
       _axios2.default.post('/shoes/shoe').then(function (response) {
-        //console.log(response.data);
         _this3.getShoes();
       }).catch(function (error) {
         console.log(error);
@@ -1447,16 +1446,24 @@ var Info = function (_React$Component) {
           _react2.default.createElement(
             'div',
             { className: 'carousel' },
-            _react2.default.createElement(_Arrow2.default, {
-              direction: 'left',
-              clickFunction: this.previousSlide,
-              glyph: '\u25C0' }),
+            _react2.default.createElement(
+              'div',
+              { id: 'left_arrow' },
+              _react2.default.createElement(_Arrow2.default, {
+                direction: 'left',
+                clickFunction: this.previousSlide,
+                glyph: '\u25C0' })
+            ),
             _react2.default.createElement(_ShoeInstagramItem2.default, {
               item: this.state.insta_stories.slice(this.state.currentInstagramIndex, this.state.currentInstagramIndex + 1) }),
-            _react2.default.createElement(_Arrow2.default, {
-              direction: 'right',
-              clickFunction: this.nextSlide,
-              glyph: '\u25B6' })
+            _react2.default.createElement(
+              'div',
+              { id: 'r_arrow' },
+              _react2.default.createElement(_Arrow2.default, {
+                direction: 'right',
+                clickFunction: this.nextSlide,
+                glyph: '\u25B6' })
+            )
           )
         )
       );
@@ -4228,41 +4235,92 @@ var ShoeInstagramItem = function (_React$Component) {
   }
 
   _createClass(ShoeInstagramItem, [{
-    key: 'componentWillReceiveProps',
+    key: "componentWillReceiveProps",
     value: function componentWillReceiveProps(nextProps) {
       //console.log(nextProps.item[0].image_url, 'image_url');
       this.setState({ item: nextProps.item[0] });
     }
   }, {
-    key: 'render',
+    key: "OverlayOff",
+    value: function OverlayOff() {
+      document.getElementById("overlay").style.display = "none";
+    }
+  }, {
+    key: "render",
     value: function render() {
+      var time = new Date();
+      console.log(time, 'time');
+      console.log(this.state.item.created_at, 'created at');
+      time = Math.floor((time - this.state.item.created_at * 1000) / (1000 * 3600 * 24)); //time in days
+      var unitTime = 'days';
+      if (time > 7) {
+        time = Math.floor(time / 7);
+        unitTime = 'weeks';
+        if (time > 4) {
+          time = Math.floor(time / 4);
+          unitTime = 'months';
+          if (time > 12) {
+            time = Math.floor(time / 12);
+            unitTime = 'years';
+          }
+        }
+      }
+      console.log(time, 'new time');
+      //time = (time - this.state.item.created_at)
+      //console.log(time);
+      ///(1000*3600*24*30); //difference of time in months
       return this.state.item.image_url !== '' ? _react2.default.createElement(
-        'div',
+        "div",
         null,
         _react2.default.createElement(
-          'div',
+          "div",
           {
-            className: 'white-box' },
+            className: "white-box" },
+          _react2.default.createElement("img", { className: "image_in_box", src: this.state.item.image_url }),
           _react2.default.createElement(
-            'div',
+            "div",
             null,
-            _react2.default.createElement('img', { className: 'image_in_box', src: this.state.item.image_url })
+            _react2.default.createElement(
+              "button",
+              { type: "button", className: "close_button", "aria-label": "Close", onClick: this.OverlayOff },
+              _react2.default.createElement(
+                "span",
+                { "aria-hidden": "true" },
+                "\xD7"
+              )
+            ),
+            _react2.default.createElement("img", { id: "user_profile_pic", src: this.state.item.user_image_url }),
+            _react2.default.createElement(
+              "div",
+              { id: "user_box" },
+              _react2.default.createElement(
+                "p",
+                { id: "insta_name" },
+                " ",
+                this.state.item.insta_user,
+                " "
+              ),
+              _react2.default.createElement(
+                "p",
+                { id: "creation_time" },
+                time,
+                " ",
+                unitTime,
+                " ago "
+              )
+            )
           ),
+          _react2.default.createElement("hr", { className: "gray_line" }),
           _react2.default.createElement(
-            'div',
-            null,
-            this.state.item.insta_user
-          ),
-          _react2.default.createElement(
-            'h5',
-            { id: 'In_look' },
-            ' In this Look '
+            "h5",
+            { id: "In_look" },
+            " In this Look "
           )
         )
       ) : _react2.default.createElement(
-        'div',
+        "div",
         null,
-        'Loading...'
+        "Loading..."
       );
     }
   }]);

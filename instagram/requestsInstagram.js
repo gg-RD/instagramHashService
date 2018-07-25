@@ -17,4 +17,8 @@ var getTags = function(callback) {
   });
   }
 
+getTags( (response) => {
+  console.log(response);
+} )
+
 module.exports.getTags = getTags;
