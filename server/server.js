@@ -23,7 +23,7 @@ app.post('/shoes/shoe', function (req, res) {
     response.forEach((i) => {
       Shoe.Shoe.find({image_url:i.images.standard_resolution.url}, (err, docs) => {
         if(docs.length){
-          console.log('already exists');
+          console.log(docs, 'already exists');
         }
         else{
           Shoe.Shoe.create({
@@ -31,9 +31,11 @@ app.post('/shoes/shoe', function (req, res) {
              likes: i.likes.count,
              image_url: i.images.standard_resolution.url,
              name_shoe: i.tags,
+             user_image_url: i.user.profile_picture,
+             created_at: i.created_time
            });
         }
-      });    
+      });
     })
     res.status(201).send();
   });

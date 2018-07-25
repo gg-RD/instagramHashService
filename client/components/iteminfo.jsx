@@ -36,7 +36,7 @@ export default class Info extends React.Component {
   getShoes(){
     axios.get('/shoes/shoe')
     .then( (response) => {
-//      console.log(response.data);
+      //console.log(response.data);
       this.setState({insta_stories:response.data})
     })
     .catch( (error) => {
@@ -48,7 +48,6 @@ export default class Info extends React.Component {
     console.log('updating Instagram');
     axios.post('/shoes/shoe')
     .then((response) => {
-    //console.log(response.data);
     this.getShoes();
     })
     .catch( (error) => {
@@ -94,16 +93,20 @@ export default class Info extends React.Component {
         />
         <div id="overlay">
           <div className='carousel'>
-            <Arrow
-              direction="left"
-              clickFunction={ this.previousSlide }
-              glyph="&#9664;" />
+            <div id='left_arrow'>
+              <Arrow
+                direction="left"
+                clickFunction={ this.previousSlide }
+                glyph="&#9664;" />
+            </div>
             <ShoeInstagramItem
               item={ this.state.insta_stories.slice(this.state.currentInstagramIndex, this.state.currentInstagramIndex+1) }/>
-            <Arrow
-              direction="right"
-              clickFunction={ this.nextSlide }
-              glyph="&#9654;" />
+            <div id='r_arrow'>
+              <Arrow
+                direction="right"
+                clickFunction={ this.nextSlide }
+                glyph="&#9654;" />
+            </div>
           </div>
         </div>
       </div>
