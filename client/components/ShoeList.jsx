@@ -2,11 +2,12 @@ import React from 'react';
 
 import ShoeItem from './ShoeItem.jsx';
 
+
 export default class ShoeList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      show_remaining: false
+      show_remaining: false,
     };
   }
 

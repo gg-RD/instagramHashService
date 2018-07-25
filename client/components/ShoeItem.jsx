@@ -16,15 +16,24 @@ export default class ShoeItem extends React.Component {
     });
   }
 
+  OverlayOn() {
+    document.getElementById("overlay").style.display = "block";
+  }
+
+  OverlayOff() {
+    document.getElementById("overlay").style.display = "none";
+  }
+
   render(){
     return(
-      <td className='shoe-item' id='table-row' height='100'>
-        <div>
-          <div className={this.state.is_hovered? 'div2' : 'div3'}  >
+      <td className='shoe-item' id='table-row'>
+        <div className='divBetween'>
+          <div className={this.state.is_hovered? 'div2' : 'div3'}>
             {this.state.is_hovered? 'Shop the look' : ''}
           </div>
           <img src={this.props.item.image_url} className='image_shoe'
             onMouseEnter={this.handleHover} onMouseLeave={this.handleHover}
+            onClick={this.OverlayOn}
           />
         </div>
           <p className='insta_user'>{this.props.item.insta_user}</p>
