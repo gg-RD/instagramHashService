@@ -26,8 +26,7 @@ export default class ShoeItem extends React.Component {
 
   render(){
     return(
-      <td className='shoe-item' id='table-row'>
-        <div className='divBetween'>
+      <div className='shoe-item'>
           <div className={this.state.is_hovered? 'div2' : 'div3'}>
             {this.state.is_hovered? 'Shop the look' : ''}
           </div>
@@ -35,10 +34,9 @@ export default class ShoeItem extends React.Component {
             onMouseEnter={this.handleHover} onMouseLeave={this.handleHover}
             onClick={this.OverlayOn}
           />
-        </div>
           <p className='insta_user'>{this.props.item.insta_user}</p>
           <p className='likes'>{this.props.item.likes} Likes</p>
-      </td>
+      </div>
       );
   }
 

@@ -1235,21 +1235,17 @@ var ShoeItem = function (_React$Component) {
     key: "render",
     value: function render() {
       return _react2.default.createElement(
-        "td",
-        { className: "shoe-item", id: "table-row" },
+        "div",
+        { className: "shoe-item" },
         _react2.default.createElement(
           "div",
-          { className: "divBetween" },
-          _react2.default.createElement(
-            "div",
-            { className: this.state.is_hovered ? 'div2' : 'div3' },
-            this.state.is_hovered ? 'Shop the look' : ''
-          ),
-          _react2.default.createElement("img", { src: this.props.item.image_url, className: "image_shoe",
-            onMouseEnter: this.handleHover, onMouseLeave: this.handleHover,
-            onClick: this.OverlayOn
-          })
+          { className: this.state.is_hovered ? 'div2' : 'div3' },
+          this.state.is_hovered ? 'Shop the look' : ''
         ),
+        _react2.default.createElement("img", { src: this.props.item.image_url, className: "image_shoe",
+          onMouseEnter: this.handleHover, onMouseLeave: this.handleHover,
+          onClick: this.OverlayOn
+        }),
         _react2.default.createElement(
           "p",
           { className: "insta_user" },
@@ -1333,7 +1329,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var infoStyle = {
   float: 'left',
-  width: '40%',
+  width: '35%',
   height: '35%',
   borderWidth: '2px',
   textAlign: 'center'
@@ -1384,7 +1380,6 @@ var Info = function (_React$Component) {
     value: function updateInstagram() {
       var _this3 = this;
 
-      console.log('updating Instagram');
       _axios2.default.post('/shoes/shoe').then(function (response) {
         _this3.getShoes();
       }).catch(function (error) {
@@ -4123,31 +4118,27 @@ var ShoeList = function (_React$Component) {
 
       return _react2.default.createElement(
         'div',
-        { className: 'shoes' },
+        { className: 'flex-container' },
         _react2.default.createElement(
-          'table',
-          { className: 'table' },
-          _react2.default.createElement(
-            'tr',
-            { id: 'table-row' },
-            this.props.list1.map(function (i) {
-              return _react2.default.createElement(_ShoeItem2.default, { key: i.id, item: i });
-            })
-          ),
-          _react2.default.createElement(
-            'tr',
-            { id: 'table-row', className: !this.state.show_remaining ? 'hidden' : '' },
-            this.props.list2.map(function (i) {
-              return _react2.default.createElement(_ShoeItem2.default, { key: i.id, item: i });
-            })
-          ),
-          _react2.default.createElement(
-            'tr',
-            { id: 'table-row', className: !this.state.show_remaining ? 'hidden' : '' },
-            this.props.list3.map(function (i) {
-              return _react2.default.createElement(_ShoeItem2.default, { key: i.id, item: i });
-            })
-          )
+          'div',
+          { id: 'flex-container1' },
+          this.props.list1.map(function (i) {
+            return _react2.default.createElement(_ShoeItem2.default, { key: i.id, item: i, id: 'article' });
+          })
+        ),
+        _react2.default.createElement(
+          'div',
+          { id: !this.state.show_remaining ? 'hidden' : 'flex-container2' },
+          this.props.list2.map(function (i) {
+            return _react2.default.createElement(_ShoeItem2.default, { key: i.id, item: i, id: 'article' });
+          })
+        ),
+        _react2.default.createElement(
+          'div',
+          { id: !this.state.show_remaining ? 'hidden' : 'flex-container3' },
+          this.props.list3.map(function (i) {
+            return _react2.default.createElement(_ShoeItem2.default, { key: i.id, item: i, id: 'article' });
+          })
         ),
         _react2.default.createElement(
           'div',
@@ -4157,10 +4148,10 @@ var ShoeList = function (_React$Component) {
             } },
           !this.state.show_remaining ? _react2.default.createElement(
             'div',
-            null,
+            { className: 'show-remaining_underline' },
             _react2.default.createElement(
               'a',
-              { className: 'show-remaining_underline' },
+              null,
               'Load More (',
               this.props.list2.length + this.props.list3.length,
               ')'
@@ -4172,10 +4163,10 @@ var ShoeList = function (_React$Component) {
             )
           ) : _react2.default.createElement(
             'div',
-            null,
+            { className: 'show-remaining_underline' },
             _react2.default.createElement(
               'a',
-              { className: 'show-remaining_underline' },
+              null,
               'Hide'
             ),
             ' ',
@@ -4249,8 +4240,6 @@ var ShoeInstagramItem = function (_React$Component) {
     key: "render",
     value: function render() {
       var time = new Date();
-      console.log(time, 'time');
-      console.log(this.state.item.created_at, 'created at');
       time = Math.floor((time - this.state.item.created_at * 1000) / (1000 * 3600 * 24)); //time in days
       var unitTime = 'days';
       if (time > 7) {
@@ -4266,9 +4255,6 @@ var ShoeInstagramItem = function (_React$Component) {
         }
       }
       console.log(time, 'new time');
-      //time = (time - this.state.item.created_at)
-      //console.log(time);
-      ///(1000*3600*24*30); //difference of time in months
       return this.state.item.image_url !== '' ? _react2.default.createElement(
         "div",
         null,
@@ -4310,11 +4296,14 @@ var ShoeInstagramItem = function (_React$Component) {
               )
             )
           ),
-          _react2.default.createElement("hr", { className: "gray_line" }),
           _react2.default.createElement(
-            "h5",
-            { id: "In_look" },
-            " In this Look "
+            "div",
+            { className: "gray_line" },
+            _react2.default.createElement(
+              "p",
+              { id: "In_look" },
+              " In this Look "
+            )
           )
         )
       ) : _react2.default.createElement(
