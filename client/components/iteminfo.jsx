@@ -7,7 +7,7 @@ import Arrow from './Arrow.jsx';
 
 const infoStyle = {
   float: 'left',
-  width: '40%',
+  width: '35%',
   height: '35%',
   borderWidth: '2px',
   textAlign: 'center'
@@ -45,7 +45,6 @@ export default class Info extends React.Component {
     }
 
   updateInstagram(){
-    console.log('updating Instagram');
     axios.post('/shoes/shoe')
     .then((response) => {
     this.getShoes();

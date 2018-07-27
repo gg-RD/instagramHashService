@@ -19,8 +19,6 @@ class ShoeInstagramItem extends React.Component {
 
   render() {
     var time = new Date();
-    console.log(time, 'time')
-    console.log(this.state.item.created_at, 'created at');
     time = Math.floor((time - this.state.item.created_at*1000)/(1000*3600*24));//time in days
     var unitTime = 'days';
     if(time>7){
@@ -36,9 +34,6 @@ class ShoeInstagramItem extends React.Component {
       }
     }
     console.log(time, 'new time')
-    //time = (time - this.state.item.created_at)
-    //console.log(time);
-    ///(1000*3600*24*30); //difference of time in months
     return(
       this.state.item.image_url !== ''?<div>
         <div
@@ -54,8 +49,9 @@ class ShoeInstagramItem extends React.Component {
               <p id='creation_time'>{time} {unitTime} ago </p>
             </div>
           </div>
-            <hr className='gray_line'/>
-            <h5 id='In_look'> In this Look </h5>
+            <div className='gray_line'>
+              <p id='In_look'> In this Look </p>
+            </div>
         </div>
       </div>: <div>
         Loading...

@@ -18,7 +18,8 @@ var getTags = function(callback) {
   }
 
 getTags( (response) => {
-  console.log(response);
+  console.log(response.length);
+  //return response;
 } )
 
 module.exports.getTags = getTags;
