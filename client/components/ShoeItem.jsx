@@ -10,6 +10,9 @@ export default class ShoeItem extends React.Component {
     this.handleHover = this.handleHover.bind(this)
   }
 
+  componentDidMount(){
+  }
+
   handleHover(){
     this.setState({
       is_hovered: !this.state.is_hovered
