@@ -1,4 +1,4 @@
-[ { id: '1827918187418364500_8255024479',
+export default exampleData = [ { id: '1827918187418364500_8255024479',
     user:
      { id: '8255024479',
        full_name: 'hack reactor gg',
