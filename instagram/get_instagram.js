@@ -6,4 +6,4 @@ app.get('/', function (request, response) {
 });
 
 app.listen(3004);
-console.log('App is runung on port 3004');
+console.log('App is runing on port 3004');

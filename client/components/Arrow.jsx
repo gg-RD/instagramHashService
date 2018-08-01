@@ -8,5 +8,4 @@ const Arrow = ({ direction, clickFunction, glyph }) => (
   </div>
 );
 
-
 export default Arrow;

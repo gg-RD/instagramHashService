@@ -5,6 +5,7 @@ mongoose.connect('mongodb://localhost/shoes');
 
 var db = mongoose.connection;
 
+
 let shoeSchema = mongoose.Schema({
   insta_user: String,
   likes: Number,
@@ -13,6 +14,7 @@ let shoeSchema = mongoose.Schema({
   user_image_url: String,
   created_at: Number,
 });
+
 
 shoeSchema.plugin(AutoIncrement, {inc_field: 'id'});
 let Shoe = mongoose.model('Shoe', shoeSchema);
