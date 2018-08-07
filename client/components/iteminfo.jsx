@@ -12,7 +12,7 @@ const InfoStyle = styled.div  `
   width: '35%',
   height: '35%',
   borderWidth: '2px',
-  textAlign: 'center'
+  textAlign: 'center',
 `
 const Title = styled.h3 `
   font: 'Helvetica';

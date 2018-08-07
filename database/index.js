@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
 const AutoIncrement = require('mongoose-sequence')(mongoose);
 
-mongoose.connect('mongodb://localhost/shoes');
+var mongoUrl = 'mongodb://database/instagram';
+
+mongoose.connect(mongoUrl, {server: {reconnectTries: Number.MAX_VALUE}});
 
 var db = mongoose.connection;
-
 
 let shoeSchema = mongoose.Schema({
   insta_user: String,
@@ -14,7 +15,6 @@ let shoeSchema = mongoose.Schema({
   user_image_url: String,
   created_at: Number,
 });
-
 
 shoeSchema.plugin(AutoIncrement, {inc_field: 'id'});
 let Shoe = mongoose.model('Shoe', shoeSchema);
