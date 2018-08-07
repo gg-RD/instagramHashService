@@ -1,3 +1,7 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import styled from 'styled-components';
+
 import Info from './components/iteminfo.jsx';
 
-window.Info = Info;
+ReactDOM.render(<Info />, document.getElementById('iteminfo'))

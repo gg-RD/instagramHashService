@@ -4,142 +4,15 @@
   <meta charset="UTF-8">
   <title>iteminfo</title>
   <style>
-
-  .table{
-    padding-top: 1px;
-    margin-top: 1px;
-    border:1;
-    border-collapse: collapse;
-  }
-
-  .shoe-item{
-    padding: 5px;
-  }
-
-  .title {
-    font: 'Trade Gothic for Nike 365 BdCn';
-    float:left;
-    margin-bottom: 0.5px;
-    margin-right: 300px;
-    font-size:16px
-  }
-  .subtitle {
-    font: 'NimbusSanL-Regu';
-    font-weight: normal;
-    float:left;
-    margin-right: 100px;
-    margin-bottom: 1px;
-    font-size: 14px
-  }
-
-  .image_shoe {
-    height: 350px;
-    width: 350px;
-  }
-
-  .likes{
-    color:gray;
-    text-align: left;
-  }
-
-  .insta_user{
-    text-align: left;
-  }
-
-  .white-box{
-    background-color: White;
-    height: 500px;
-    width: 750px;
-    font-weight: normal;
-    color: #92a8d1;
-    position: absolute;
-    top: 200px;
-    right: 550px
-  }
-
-  .image_in_box{
-    height: 450px;
-    width: 450px;
-    float: left;
-    margin: 20px;
-  }
-
-  #In_look{
-    font-family: Helvetica;
-    font-weight: bold;
-    color:#000000;
-    font-size: 15px;
-    text-align: left;
-  }
-
-  .hidden{
-    display:none;
-  }
-
-  .show-remaining{
-    float:left;
-    font-size: 14px;
-    padding-right: 10px;
-  }
-
-  .show-remaining_underline{
-    float:left;
-    font-size: 16px;
-    text-decoration: underline;
-  }
-
-
-  .div2{
-    background:rgba(255,255,255,0.75);
-    width: 150px;
-    height: 50px;
-    border-radius: 6px;
-    position:relative;
-    top:220px;
-    right:-100px;
-    text-align: center;
-    line-height: 50px;
-  }
-
-  .div3{
-    background:rgba(255,255,255,0);
-    width: 150px;
-    height: 50px;
-    border-radius: 6px;
-    position:relative;
-    top:220px;
-    right:-100px;
-    text-align: center;
-    line-height: 50px;
-  }
-
-  #overlay {
-    position: fixed; /* Sit on top of the page content */
-    display: none; /* Hidden by default */
-    width: 100%; /* Full width (cover the whole page) */
-    height: 100%; /* Full height (cover the whole page) */
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0,0,0,0.5); /* Black background with opacity */
-    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
-    cursor: pointer; /* Add a pointer on hover */
-  }
-
-</style>
+  </style>
 
 </head>
 <body>
   <div id="iteminfo"></div>
   <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
-  <script src="http://localhost:3004/app.js"></script>
+  <script src="app.js"></script>
   <script>
-    ReactDOM.render(
-      React.createElement(Info),
-      document.getElementById('iteminfo')
-    );
   </script>
 </body>
 </html>
